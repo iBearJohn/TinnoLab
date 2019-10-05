@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TinnoLab.Models.Topic>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Tinno News</h2>
+<p>
+    <a asp-action="Add">Create New Topic</a>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </div>
+                    <div>
+                        <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
+                    </div>
+                    <div>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </div>
+                </td>
+                <td>
+                    <form asp-action="UpVote">
+                        <input type="hidden" value="@item.Id" name="id" />
+                        <div>
+                            <input style="width:100px" type="submit" value="Up Vote" />
+                            @Html.DisplayFor(modelItem => item.UpVote)
+                        </div>
+                    </form>
+                    <form asp-action="DownVote">
+                        <input type="hidden" value="@item.Id" name="id" />
+                        <div>
+                            <input style="width:100px" type="submit" value="Down Vote" />
+                            @Html.DisplayFor(modelItem => item.DownVote)
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
